@@ -1,13 +1,3 @@
-/* TODO
- *
- * - Horiz. support
- * - Always inside the container
- * - Option for hooks
- * - Handle resize
- * - API to refresh (e.g. when uncollapse a menu)
- * - Clean up the code
- *
-*/
 (function($) {
 
 $.fn.smartflow = function(uopts) {
@@ -111,6 +101,7 @@ var
 	},
 
 	flow = function(e) {
+		console.log('flow');
 		switch(info.route) {
 			case UP: style.top += diff; break;
 			case DOWN: style.top -= diff; break;
@@ -119,7 +110,8 @@ var
 		$(e).css({top:style.top+'px'});
 	},
 
-	hook = function(e) {
+	fixit = function(e) {
+		console.log('fixit');
 		switch(info.route) {
 			case UP: style.top = 0; break;
 			case DOWN: style.top = info.wh - info.eh; break;
@@ -128,18 +120,13 @@ var
 		$(e).css({top:style.top+'px'});
 	},
 
-	repos = function(e) {
+	hook = function(e) {
+		console.log('hook');
 		hooks = $(e).data('hooks');
 
 		switch(info.route) {
-			case UP:
-				style.top = hooks.top;
-				break;
-			case DOWN:
-				t1 = info.ey + info.eh; // ebot
-				style.top = hooks.bot - t1;
-				console.log(style.top);
-				break;
+			case UP: style.top = hooks.top - info.wy; break;
+			case DOWN: style.top = hooks.bot - info.wy - info.eh; break;
 		}
 
 		$(e).css({top:style.top+'px'});
@@ -164,14 +151,13 @@ var
 		info = getinfo(e);
 
 		if(isintoview() && !isintohook(e))
-			hook(e);
-		else {
+			fixit(e);
+		else
 			flow(e);
 
-			info = getinfo(e);
-			if(!isvisible())
-				repos(e);
-		}
+		info = getinfo(e);
+		if(!isvisible() || isintohook(e))
+			hook(e);
 
 		update();
 	};
