@@ -150,8 +150,11 @@ var
 	place = function(e) {
 		info = getinfo(e);
 
-		if(isintoview() && !isintohook(e))
+		if(isintoview() && !isintohook(e)) {
+			if(info.eh < info.wh)
+				info.route = UP; /* XXX option */
 			fixit(e);
+		}
 		else
 			flow(e);
 
