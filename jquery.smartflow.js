@@ -168,36 +168,29 @@ var
 
 		info = getinfo(e);
 		if(info.eh < info.wh) {
-			console.log('1');
 			info = getinfo(e);
 			if(!intohooks(e, UP)) {
-				console.log('2');
 				hook(e, UP);
 			}
 			else {
-				console.log('3');
 				fixit(e, UP);
 				info = getinfo(e);
 
 				if(!intohooks(e, invroute(info.route))) {
-					console.log('4');
 					info.route = invroute(info.route);
 					hook(e, info.route);
 				}
 				else if(!intohooks(e, info.route)) {
-					console.log('5');
 					hook(e, info.route);
 				}
 			}
 		}
 		else if(!intoview(invroute(info.route))) {
-			console.log('a');
 			fixit(e, invroute(info.route));
 
 			info = getinfo(e);
 			if(!intohooks(e, info.route)) {
 				hook(e, info.route);
-				console.log('b');
 			}
 		}
 
