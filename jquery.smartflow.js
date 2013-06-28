@@ -21,7 +21,11 @@ var
 
 	/* options */
 	dopts = {
-		placeto: UP // where to place panels having height lower than window
+		placeto: UP, // where to place panels having height lower than window
+		hooks: {
+			top: null,
+			bot: null
+		}
 	},
 	opts = $.extend(dopts, uopts),
 
@@ -93,11 +97,13 @@ var
 		style.top = $(e).offset().top;
 
 		hooks = {
-			// the element top itself
-			top: style.top,
+			top: opts.hooks && opts.hooks.top
+				? opts.hooks.top
+				: style.top,
 
-			// the parent element bottom
-			bot: $(e).parent().offset().top + $(e).parent().outerHeight(true),
+			bot: opts.hooks && opts.hooks.bot
+				? opts.hooks.bot
+				: $(e).parent().offset().top + $(e).parent().outerHeight(true),
 		};
 
 		$(e).css({top:style.top+'px',position:'fixed'}).data('hooks', hooks);
