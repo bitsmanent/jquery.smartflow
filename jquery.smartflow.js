@@ -23,8 +23,8 @@ var
 	dopts = {
 		placeto: UP, // where to place panels having height lower than window
 		hooks: {
-			top: null,
-			bot: null
+			top: null, // default element top
+			bot: null // default parent element bottom
 		}
 	},
 	opts = $.extend(dopts, uopts),
