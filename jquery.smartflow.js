@@ -185,15 +185,15 @@ var
 				}
 			}
 		}
-		else if(!intoview(invroute(info.route))) {
-			fixit(e, invroute(info.route));
+		else {
+			if(intoview(info.route) || !intoview(invroute(info.route)))
+				fixit(e, info.route);
 
 			info = getinfo(e);
 			if(!intohooks(e, info.route)) {
 				hook(e, info.route);
 			}
 		}
-
 
 		update();
 	};
