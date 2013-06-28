@@ -129,6 +129,13 @@ var
 		};
 	},
 
+	isvisible = function() {
+		t1 = info.ey + info.eh; // ebot
+		t2 = info.wy + info.wh; // wbot
+
+		return (t1 >= info.wy && info.ey <= t2);
+	},
+
 	intoview = function(r) {
 		switch(r) {
 			case UP:
@@ -185,10 +192,8 @@ var
 				}
 			}
 		}
-		else {
-			if(intoview(info.route) || !intoview(invroute(info.route)))
-				fixit(e, info.route);
-
+		else if(intoview(info.route) || !isvisible()) {
+			fixit(e, info.route);
 			info = getinfo(e);
 			if(!intohooks(e, info.route)) {
 				hook(e, info.route);
