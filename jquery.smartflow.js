@@ -4,9 +4,6 @@ $.fn.smartflow = function(uopts) {
 "use strict";
 
 var
-	dopts = {},
-	opts = $.extend(dopts, uopts),
-
 	$w = $(window),	// the window
 	elems = [],	// elements stack
 	style = {},	// current style
@@ -21,6 +18,12 @@ var
 	DOWN = 2,
 	LEFT = 3,
 	RIGHT = 4,
+
+	/* options */
+	dopts = {
+		placeto: UP // where to place panels having height lower than window
+	},
+	opts = $.extend(dopts, uopts),
 
 	getinfo = function(e) {
 		t1 = $w.scrollTop();
@@ -176,11 +179,11 @@ var
 		info = getinfo(e);
 		if(info.eh < info.wh) {
 			info = getinfo(e);
-			if(!intohooks(e, UP)) {
-				hook(e, UP);
+			if(!intohooks(e, opts.placeto)) {
+				hook(e, opts.placeto);
 			}
 			else {
-				fixit(e, UP);
+				fixit(e, opts.placeto);
 				info = getinfo(e);
 
 				if(!intohooks(e, invroute(info.route))) {
