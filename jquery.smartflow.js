@@ -220,9 +220,6 @@ var
 	});
 
 	return this.each(function(i) {
-		info = getinfo(this);
-		if(info.eh < info.wh)
-			return;
 		pushelem(this);
 	});
 };
