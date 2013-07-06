@@ -110,7 +110,6 @@ var
 		};
 	},
 
-
 	isvisible = function() {
 		t1 = info.ey + info.eh; // ebot
 		t2 = info.wy + info.wh; // wbot
@@ -142,7 +141,7 @@ var
 		}
 	},
 
-	invroute = function(r) {
+	revroute = function(r) {
 		switch(r) {
 			case UP: return DOWN;
 			case DOWN: return UP;
@@ -165,8 +164,8 @@ var
 				fixit(e, opts.placeto);
 				info = getinfo(e);
 
-				if(!intohooks(e, invroute(info.route))) {
-					info.route = invroute(info.route);
+				if(!intohooks(e, revroute(info.route))) {
+					info.route = revroute(info.route);
 					hook(e, info.route);
 				}
 				else if(!intohooks(e, info.route)) {
