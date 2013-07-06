@@ -29,34 +29,6 @@ var
 	},
 	opts = $.extend(dopts, uopts),
 
-	getinfo = function(e) {
-		t1 = $w.scrollTop();
-		t2 = $w.data('scrollTop');
-		diff = t1 > t2 ? t1 - t2 : t2 - t1;
-
-		if(t1 != t2) {
-			route = t1 > t2 ? DOWN : UP;
-		}
-		else {
-			t1 = $w.scrollLeft();
-			t2 = $w.data('scrollLeft');
-			route = t1 > t2 ? RIGHT : LEFT;
-		}
-
-		return {
-			wx: $w.scrollLeft(),
-			wy: $w.scrollTop(),
-			ww: $w.width(),
-			wh: $w.height(),
-			ex: $(e).offset().left,
-			ey: $(e).offset().top,
-			ew: $(e).outerWidth(true),
-			eh: $(e).outerHeight(true),
-			route: route,
-			diff: diff
-		};
-	},
-
 	update = function() {
 		$w.data('scrollTop', $w.scrollTop());
 		$w.data('scrollLeft', $w.scrollLeft());
@@ -137,6 +109,7 @@ var
 			diff: diff
 		};
 	},
+
 
 	isvisible = function() {
 		t1 = info.ey + info.eh; // ebot
