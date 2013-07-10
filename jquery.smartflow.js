@@ -67,18 +67,17 @@ var
 
 	pushelem = function(e) {
 		style.top = $(e).offset().top;
+		info = getinfo(e);
+		hooks = gethooks(e);
 
-		hooks = {
-			top: opts.hooks && opts.hooks.top
-				? opts.hooks.top
-				: style.top,
+		$(e).css({top:style.top+'px'}).data('hooks', hooks);
 
-			bot: opts.hooks && opts.hooks.bot
-				? opts.hooks.bot
-				: $(e).parent().offset().top + $(e).parent().outerHeight(true),
-		};
+		/* prevent going out of hooks */
+		if((info.ey + info.eh) > (hooks.bot - hooks.top))
+			$(e).css({position:''});
+		else
+			$(e).css({position:'fixed'});
 
-		$(e).css({top:style.top+'px',position:'fixed'}).data('hooks', hooks);
 		elems.push(e);
 	},
 
@@ -107,6 +106,18 @@ var
 			eh: $(e).outerHeight(true),
 			route: route,
 			diff: diff
+		};
+	},
+
+	gethooks = function(e) {
+		return {
+			top: opts.hooks && opts.hooks.top
+				? opts.hooks.top
+				: style.top,
+
+			bot: opts.hooks && opts.hooks.bot
+				? opts.hooks.bot
+				: $(e).parent().offset().top + $(e).parent().outerHeight(true),
 		};
 	},
 
@@ -181,6 +192,7 @@ var
 			}
 		}
 
+		hooks = gethooks(e);
 		update();
 	};
 
