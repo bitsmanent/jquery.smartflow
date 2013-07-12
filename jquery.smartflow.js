@@ -190,8 +190,6 @@ var
 				hook(e, info.route);
 			}
 		}
-		else
-			flow(e);
 
 		hooks = gethooks(e);
 		update();
