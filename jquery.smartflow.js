@@ -112,11 +112,11 @@ var
 	gethooks = function(e) {
 		return {
 			top: opts.hooks && opts.hooks.top
-				? opts.hooks.top
+				? $(opts.hooks.top).offset().top
 				: style.top,
 
 			bot: opts.hooks && opts.hooks.bot
-				? opts.hooks.bot
+				? $(opts.hooks.bot).offset().top + $(opts.hooks.bot).outerHeight(true)
 				: $(e).parent().offset().top + $(e).parent().outerHeight(true),
 		};
 	},
@@ -163,9 +163,6 @@ var
 
 	place = function(e) {
 		info = getinfo(e);
-		flow(e);
-
-		info = getinfo(e);
 		if(info.eh < info.wh) {
 			info = getinfo(e);
 			if(!intohooks(e, opts.placeto)) {
@@ -191,6 +188,8 @@ var
 				hook(e, info.route);
 			}
 		}
+		else
+			flow(e);
 
 		hooks = gethooks(e);
 		update();
