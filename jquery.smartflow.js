@@ -163,6 +163,8 @@ var
 
 	place = function(e) {
 		info = getinfo(e);
+		flow(e);
+		info = getinfo(e);
 		if(info.eh < info.wh) {
 			info = getinfo(e);
 			if(!intohooks(e, opts.placeto)) {
